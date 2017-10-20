@@ -1,0 +1,1 @@
+git add * 报错：the fllowing -f:node_modules ==>http://www.cnblogs.com/chaoguo1234/p/5323649.html

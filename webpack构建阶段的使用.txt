@@ -1,7 +1,7 @@
 npm install -g webpack
 npm init 创建一个package.json文件，这是一个标准的npm说明文件，里面蕴含了丰富的信息，包括当前项目的依赖模块，自定义的脚本任务等等
 npm install --save-dev webpack  本项目中安装Webpack作为依赖包
-node_modules/.bin/webpack app/main.js public/bundle.js  将main.js编译到 bundle.js中
+node_modules/.bin/webpack app/main.js public/bundle.js  建立好文件夹后，将main.js编译到 bundle.js中
 也可以通过配置文件来使用：新建webpack.config.js
         module.exports = {
 		  entry:  __dirname + "/app/main.js",//已多次提及的唯一入口文件
@@ -65,11 +65,11 @@ Webpack的强大功能：
 		
 		  devServer: {
 		    contentBase: "./public",//本地服务器所加载的页面所在的目录
-		    historyApiFallback: true,//不跳转
+		    historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
 		    inline: true，//实时刷新
 		  } 
 		}
-		在package.json中的scripts对象中添加如下命令，用以开启本地服务器
+		在package.json中的scripts对象中添加如下命令"server": "webpack-dev-server --open",开启本地服务器
 		npm run server即可在本地的8080端口查看结果
 
 	Loaders:
@@ -105,16 +105,20 @@ Webpack的强大功能：
 			                use: {
 			                    loader: "babel-loader",
 			                    options: {
-			                        presets: [
+			                        presets: [// 编译es6=>es5,jsx=>js
 			                            "es2015", "react"
 			                        ]
 			                    }
 			                },
-			                exclude: /node_modules/
+			                exclude: /node_modules/  // 不编译node_modules
 			            }
 			        ]
 			    }
 			};
+			//.babelrc
+			{
+			  "presets": ["react", "es2015"]
+			}
 			webpack的配置已经允许你使用ES6以及JSX的语法了
 			npm install --save react react-dom
 	一切皆模块
@@ -138,7 +142,7 @@ Webpack的强大功能：
 		                        loader: "style-loader"
 		                    }, {
 		                        loader: "css-loader"，
-		                        options: {modules: true}
+		                        options: {modules: true}// 可以将css以模块的方式引入并使用 styles.root
 		                    }
 		                ]
 		            }
@@ -181,7 +185,7 @@ Webpack的强大功能：
 			}
 		插件（Plugins）:
 			拓展Webpack功能的，它们会在整个构建过程中生效，执行相关的任务。
-			oaders是在打包构建过程中用来处理源文件的（JSX，Scss，Less..），一次处理一个。
+			loaders是在打包构建过程中用来处理源文件的（JSX，Scss，Less..），一次处理一个。
 			插件并不直接操作单个文件，它直接对整个构建过程其作用。
 			Webpack有很多内置插件，同时也有很多第三方插件
 			使用插件：npm安装它，然后在webpack配置中的plugins关键字部分添加该插件的一个实例（plugins是一个数组）
@@ -213,7 +217,7 @@ Webpack的强大功能：
 		    ],
 		    2:devServer: {
 				contentBase: "./public", //本地服务器所加载的页面所在的目录
-				historyApiFallback: true, //不跳转
+				historyApiFallback: true, //跳转到.html
 				inline: true, //实时刷新
 				hot: true
 			},

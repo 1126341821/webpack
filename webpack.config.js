@@ -27,7 +27,7 @@ module.exports = {
 					loader: "style-loader" // 将所有的计算后的样式加入页面中
 				}, {
 					loader: "css-loader", // import的方式引入
-					options: { // 允许将css以模块的方式引入，并且styles.root
+					options: { // 允许将css以模块的方式引入，使用方式：styles.root
 						modules: true
 					}
 				}, { // 对原生CSS的拓展后的scss,less的文件的编译
